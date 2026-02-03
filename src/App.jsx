@@ -52,17 +52,15 @@ function csvToJson(csvText) {
 export default function App() {
   const [rawCsv, setRawCsv] = useState('');
   const [fileName, setFileName] = useState('');
-  const [error, setError] = useState('');
+  const [sampleLoading, setSampleLoading] = useState(false);
+  const [sampleError, setSampleError] = useState('');
 
-  const converted = useMemo(() => {
-    if (!rawCsv) return [];
-
+  const { converted, error } = useMemo(() => {
+    if (!rawCsv) return { converted: [], error: '' };
     try {
-      setError('');
-      return csvToJson(rawCsv);
+      return { converted: csvToJson(rawCsv), error: '' };
     } catch (err) {
-      setError(err.message);
-      return [];
+      return { converted: [], error: err.message };
     }
   }, [rawCsv]);
 
@@ -78,6 +76,25 @@ export default function App() {
     setFileName(file.name);
     const text = await file.text();
     setRawCsv(text);
+  };
+
+  const loadSampleFile = async () => {
+    setSampleLoading(true);
+    setSampleError('');
+
+    try {
+      const response = await fetch('/dummy_mutation_data.csv');
+      if (!response.ok) {
+        throw new Error('Could not load sample CSV.');
+      }
+      const text = await response.text();
+      setFileName('dummy_mutation_data.csv');
+      setRawCsv(text);
+    } catch (err) {
+      setSampleError(err.message);
+    } finally {
+      setSampleLoading(false);
+    }
   };
 
   const downloadJson = () => {
@@ -106,8 +123,23 @@ export default function App() {
           <input id="csv-file" type="file" accept=".csv,text/csv" onChange={handleFileSelect} />
         </label>
 
+        <div className="actions">
+          <button type="button" onClick={loadSampleFile} disabled={sampleLoading}>
+            {sampleLoading ? 'Loading sample...' : 'Use sample data'}
+          </button>
+          <a href="/dummy_mutation_data.csv" download className="ghost-button">
+            Download sample CSV
+          </a>
+        </div>
+
         {fileName && <p className="meta">Loaded: {fileName}</p>}
         {error && <p className="error">{error}</p>}
+        {sampleError && <p className="error">{sampleError}</p>}
+        {converted.length > 0 && (
+          <p className="meta">
+            Parsed {converted.length} rows and {Object.keys(converted[0]).length} columns.
+          </p>
+        )}
 
         <button type="button" onClick={downloadJson} disabled={!jsonText}>
           Download JSON

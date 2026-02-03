@@ -53,6 +53,26 @@ button {
   font-weight: 700;
 }
 
+.actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.ghost-button {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  background: #f8fafc;
+  color: #0f172a;
+  border: 1px solid #94a3b8;
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  font-weight: 700;
+  text-decoration: none;
+}
+
 button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
