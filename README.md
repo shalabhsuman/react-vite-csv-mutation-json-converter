@@ -1,6 +1,6 @@
-# CSV to JSON React App
+# React + Vite CSV Mutation to JSON Converter
 
-Simple React + Vite frontend that reads a CSV file in the browser and converts it to JSON.
+Client-side web app that converts mutation-focused CSV datasets to JSON directly in the browser.
 
 ## Run locally
 
@@ -19,17 +19,25 @@ npm run test
 ## Features
 
 - Upload a `.csv` file from your machine
-- Parses quoted values and escaped quotes
-- Displays pretty-printed JSON in the UI
+- Parse quoted fields, commas inside quotes, and escaped quotes
+- Show pretty-printed JSON output in the UI
 - Download converted output as `.json`
-- Includes sample mutation CSV data (`public/dummy_mutation_data.csv`)
-- One-click "Use sample data" for quick demos
+- Load sample mutation data in one click
 
-## Publish to GitHub
+## Project structure
 
-```bash
-git add .
-git commit -m "Initial version"
-git remote add origin <your-github-repo-url>
-git push -u origin main
+```text
+src/
+  App.jsx                # Main UI flow
+  utils/csvToJson.js     # CSV parsing + conversion logic
+tests/
+  csvToJson.test.mjs     # Parser unit tests
+public/
+  dummy_mutation_data.csv
 ```
+
+## Tech stack
+
+- React 18
+- Vite 5
+- Node test runner (`node --test`)
