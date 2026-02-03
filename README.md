@@ -2,9 +2,9 @@
 
 Client-side web app that converts mutation-focused CSV datasets to JSON directly in the browser.
 
-## Screenshot
+## UI Preview
 
-![App screenshot](docs/images/app-screenshot.png)
+![Frontend UI preview](docs/images/app-screenshot.png)
 
 ## Run locally
 
