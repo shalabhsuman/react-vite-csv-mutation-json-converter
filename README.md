@@ -9,10 +9,11 @@ npm install
 npm run dev
 ```
 
-## Build
+## Build and test
 
 ```bash
 npm run build
+npm run test
 ```
 
 ## Features
@@ -28,7 +29,7 @@ npm run build
 
 ```bash
 git add .
-git commit -m "Add sample data flow and UI improvements"
+git commit -m "Initial version"
 git remote add origin <your-github-repo-url>
 git push -u origin main
 ```
